@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WRTC</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/peerjs.js"></script>
+    <script src="js/socket.io.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <div id="div-chat">
+        <div class="flex_box" style="display: flex; flex-grow: 1;">
+            <div class="flex__left">
+                <p >Online User:</p>
+                <ul id="ulUser"></ul>
+                <h3 id="mydiv">Your ID: </h3>
+                <video id="localStream" width="300" controls>
+                    <audio id="gum-local" controls autoplay></audio>
+                </video>
+                <br /><br />
+                <div id="idtest">
+                  <video id="remoteStream" width="300" controls>
+                  </video>
+                </div>
+                
+                // Vào Quiz
+                <button id="goToQuizBtn">Go to Quiz</button>
+
+
+                <br /><br />
+                <input type="text" id="remoteID" placeholder="Remote ID">
+                <button id="btnCall">Call</button>
+            </div>
+
+            <div class="flex__right">
+                <div>
+                    <label for="message" class="h4" style="margin-top: 20px;">Message:</label>
+                    <ul id="messages" style="width: 1000px; height: 300px; border: solid 1px #cecece; list-style: none;"></ul>
+                </div>
+                <form>
+                  <div class="form-group">
+                      <textarea id="m" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
+                  </div>
+                  <button type="submit" id="form-submit" class="btn btn-success btn-lg pull-right">Submit</button>
+              </form>
+            </div>
+        </div>
+
+        
+    </div>
+    <br /><br />
+
+    <div id="div-dang-ky">
+        <input type="text" id="txtUsername" placeholder="Enter your username">
+        <button id="btnSignUp">Sign Up</button>
+    </div>
+
+     <!-- Đoạn mã JavaScript để xử lý sự kiện click vào nút "Go to Quiz" -->
+     <script>
+        document.getElementById('goToQuizBtn').addEventListener('click', function() {
+            // Redirect to quiz page
+            window.location.href = '/quiz';
+        });
+    </script>
+
+    <script>
+        $(function () {
+            const socket = io('http://localhost:3001');
+
+            $('form').submit(function(){
+                const message = $('#m').val();
+                socket.emit('chat message', message);
+
+                updateRemoteStream(message);
+
+                $('#messages').append($('<li>').text(message));
+
+                $('#m').val('');
+
+                if(message == 'hello'){
+                    $('#idtest').hide();
+                    $('#idtesth1').show();
+
+                } else {
+                    $('#idtest').show();
+                    $('#idtesth1').hide();
+                }
+                
+                return false;
+            });
+
+            socket.on('chat message', function(msg){
+                updateRemoteStream(msg);
+                $('#messages').append($('<li>').text(msg));
+            });
+
+            function updateRemoteStream(message) {
+                const remoteStream = document.getElementById('remoteStream');
+                remoteStream.textContent = message;
+            }
+        });
+    </script>
+</body>
+</html>
