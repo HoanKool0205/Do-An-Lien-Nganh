@@ -22,19 +22,37 @@ app.get('/', (req, res) => {
 });
 
 // Route để phục vụ trang quiz và các tệp CSS và JavaScript liên quan
+// app.get('/quiz', (req, res) => {0
+//   res.sendFile(path.join(__dirname, 'public', 'quiz.html'));
+// });
+
 app.get('/quiz', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'quiz.html')); // Đường dẫn đến tệp HTML của trang câu hỏi
+  res.render('quiz'); // Sử dụng res.render thay vì res.sendFile
 });
+app.get('/style.css', (req, res) => {
+  res.sendFile(path.join(__dirname, 'styles.css')); 
+});
+
+app.get('/script.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'script.js')); 
+});
+
 
 // Middleware để phục vụ các tệp CSS từ thư mục /public
-app.get('/style.css', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'style.css'));
+// app.get('/style.css', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'style.css'));
+// });
+
+// // Middleware để phục vụ các tệp JavaScript từ thư mục /public
+// app.get('/script.js', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'script.js'));
+// });
+
+app.get('/getOnlineUsers', (req, res) => {
+  res.json(arrUserInfo);
 });
 
-// Middleware để phục vụ các tệp JavaScript từ thư mục /public
-app.get('/script.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'script.js'));
-});
+
 
 io.on('connection', (socket) => {
     // console.log("User connected: " + socket.id);

@@ -1,5 +1,5 @@
-// const endButton = document.getElementById
-// ('end-btn')
+const endButton = document.getElementById
+('end-btn')
 
 const startButton = document.getElementById
 ('start-btn')
@@ -12,6 +12,7 @@ const questionElement = document.getElementById
 const answerButtonsElement = document.getElementById
 ('answer-buttons')
 
+
 let shuffledQuestions, currentQuestionIndex
 
 startButton.addEventListener('click', startGame)
@@ -19,6 +20,11 @@ nextButton.addEventListener('click', () => {
   currentQuestionIndex++
   setNextQuestion()
 })
+
+endButton.addEventListener('click', () => {
+  // Chuyển hướng người dùng đến trang server
+  window.location.href = 'http://localhost:3001'; // Thay đổi URL tùy theo địa chỉ của server của bạn
+});
 
 function startGame() {
   startButton.classList.add('hide')

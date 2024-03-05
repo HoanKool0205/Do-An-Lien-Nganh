@@ -102,5 +102,29 @@
             }
         });
     </script>
+
+    // lưu lại thông tin máy chủ
+    <script>
+        document.getElementById('goToQuizBtn').addEventListener('click', function() {
+    // Gửi yêu cầu đến máy chủ để lấy danh sách người dùng trực tuyến
+    fetch('/getOnlineUsers')
+        .then(response => response.json())
+        .then(data => {
+            // Cập nhật giao diện người dùng với danh sách người dùng trực tuyến
+            const ulUser = document.getElementById('ulUser');
+            ulUser.innerHTML = ''; // Xóa danh sách người dùng hiện tại
+            data.forEach(user => {
+                const li = document.createElement('li');
+                li.textContent = user.username; // Thay 'username' bằng thuộc tính tên người dùng của bạn
+                ulUser.appendChild(li);
+            });
+            // Redirect to quiz page
+            window.location.href = '/quiz';
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+    </script>
+    
 </body>
 </html>
