@@ -21,10 +21,27 @@ nextButton.addEventListener('click', () => {
   setNextQuestion()
 })
 
+// Quay lại Cam
 endButton.addEventListener('click', () => {
-  // Chuyển hướng người dùng đến trang server
-  window.location.href = 'http://localhost:3001'; // Thay đổi URL tùy theo địa chỉ của server của bạn
+  fetch('/update', {
+    method: 'GET',
+  })
+  .then(response => response.text())
+  .then(data => {
+    // Kiểm tra nội dung nhận được từ máy chủ
+    // Nếu nội dung là trang index, thì cập nhật trang
+    // Nếu không, không cập nhật trang
+    if (data.includes('<title>Index Page</title>')) {
+      document.body.innerHTML = data;
+    } else {
+      console.error('Error: Unexpected response from server');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 });
+
 
 function startGame() {
   startButton.classList.add('hide')

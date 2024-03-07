@@ -17,26 +17,46 @@ server.listen(3001, () => {
 
 const arrUserInfo = [];
 
+// Route để phục vụ trang index.ejs
 app.get('/', (req, res) => {
-  res.render('index'); // Trang chính của ứng dụng
+  res.render('index');
 });
+
+// Route để phục vụ trang quiz.ejs
+app.get('/quiz', (req, res) => {
+  res.render('quiz');
+});
+
+// Middleware để phục vụ các tệp CSS từ thư mục /public
+app.get('/style.css', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.sendFile(path.join(__dirname, 'public', 'style.css'));
+});
+
+// Middleware để phục vụ các tệp JavaScript từ thư mục /public
+app.get('/script.js', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.sendFile(path.join(__dirname, 'public', 'script.js'));
+});
+
+
+// Route để cập nhật trang index.ejs
+app.get('/update', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.sendFile(path.join(__dirname, 'views', 'index.ejs')); // Sử dụng res.render để render trang index từ template EJS
+});
+
 
 // Route để phục vụ trang quiz và các tệp CSS và JavaScript liên quan
 // app.get('/quiz', (req, res) => {0
 //   res.sendFile(path.join(__dirname, 'public', 'quiz.html'));
 // });
-
-app.get('/quiz', (req, res) => {
-  res.render('quiz'); // Sử dụng res.render thay vì res.sendFile
-});
-app.get('/style.css', (req, res) => {
-  res.sendFile(path.join(__dirname, 'styles.css')); 
-});
-
-app.get('/script.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'script.js')); 
-});
-
 
 // Middleware để phục vụ các tệp CSS từ thư mục /public
 // app.get('/style.css', (req, res) => {
@@ -48,9 +68,7 @@ app.get('/script.js', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'public', 'script.js'));
 // });
 
-app.get('/getOnlineUsers', (req, res) => {
-  res.json(arrUserInfo);
-});
+// Route để cập nhật trang index.ejs
 
 
 
