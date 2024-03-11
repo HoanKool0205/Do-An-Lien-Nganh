@@ -29,26 +29,17 @@ app.get('/quiz', (req, res) => {
 
 // Middleware để phục vụ các tệp CSS từ thư mục /public
 app.get('/style.css', (req, res) => {
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
   res.sendFile(path.join(__dirname, 'public', 'style.css'));
 });
 
 // Middleware để phục vụ các tệp JavaScript từ thư mục /public
 app.get('/script.js', (req, res) => {
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
   res.sendFile(path.join(__dirname, 'public', 'script.js'));
 });
 
 
 // Route để cập nhật trang index.ejs
 app.get('/update', (req, res) => {
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
   res.sendFile(path.join(__dirname, 'views', 'index.ejs')); // Sử dụng res.render để render trang index từ template EJS
 });
 

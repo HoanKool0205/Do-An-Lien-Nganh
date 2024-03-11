@@ -109,19 +109,21 @@ function clearStatusClass(element) {
 
 const questions = [
   {
-    question: 'What is 2 + 2?',
+    question: 'Có mấy tính chất OOP ?',
     answers: [
-      { text: '4', correct: true },
-      { text: '22', correct: false }
+      {text: "1", correct: false},
+      {text: "2", correct: false},
+      {text: "3", correct: false},
+      {text: "4", correct: true}
     ]
   },
   {
-    question: 'Chung ngu that khong?',
+    question: 'Node.js sử dụng ngôn ngữ lập trình nào ?',
     answers: [
-      { text: 'Bốc phét', correct: true },
-      { text: 'Tào lao', correct: true },
-      { text: 'Chém gió', correct: true },
-      { text: 'Ahihi', correct: true }
+      {text: "Java", correct: false},
+      {text: "C++", correct: false},
+      {text: "Python", correct: false},
+      {text: "JavaScript", correct: true}
     ]
   },
   

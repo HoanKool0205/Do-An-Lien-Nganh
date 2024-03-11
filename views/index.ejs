@@ -8,12 +8,30 @@
     <script src="js/peerjs.js"></script>
     <script src="js/socket.io.js"></script>
     <script src="js/main.js"></script>
+    <style>
+        /* Add CSS to style chat message div to the right */
+        .chat-messages {
+            width: 500px;
+            height: 300px;
+            border: solid 1px #cecece;
+            list-style: none;
+            margin-left: 200px; /* Adjust margin for spacing */
+            overflow-y: auto; /* Enable scrolling */
+        }
+
+        /* Adjust styling for flex__right */
+        .flex__right {
+            display: flex;
+            flex-direction: column;
+           margin-left: 50px;/* Align items to the end (right side) */
+        }
+    </style>
 </head>
 <body>
-    <div id="div-chat">
+    <div id="div-chat" style="margin-left: 50px;">
         <div class="flex_box" style="display: flex; flex-grow: 1;">
             <div class="flex__left">
-                <p >Online User:</p>
+                <p style="font-size: 20px;">Online User:</p>
                 <ul id="ulUser"></ul>
                 <h3 id="mydiv">Your ID: </h3>
                 <video id="localStream" width="300" controls>
@@ -25,30 +43,27 @@
                   </video>
                 </div>
                 
-                // Vào Quiz
                 <button id="goToQuizBtn">Go to Quiz</button>
-
 
                 <br /><br />
                 <input type="text" id="remoteID" placeholder="Remote ID">
                 <button id="btnCall">Call</button>
             </div>
 
-            <div class="flex__right">
+            <div class="flex__right" style="margin-top: 40px">
                 <div>
-                    <label for="message" class="h4" style="margin-top: 20px;">Message:</label>
-                    <ul id="messages" style="width: 1000px; height: 300px; border: solid 1px #cecece; list-style: none;"></ul>
+                    <label for="message" class="h4" style="margin-top: 50px; margin-left: 200px; font-size: 30px;">Message:</label>
+                    <!-- Apply class for chat messages -->
+                    <ul id="messages" class="chat-messages"></ul>
                 </div>
-                <form>
+                <form style="margin-left: 200px;">
                   <div class="form-group">
                       <textarea id="m" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
                   </div>
                   <button type="submit" id="form-submit" class="btn btn-success btn-lg pull-right">Submit</button>
               </form>
             </div>
-        </div>
-
-        
+        </div>        
     </div>
     <br /><br />
 
@@ -101,30 +116,6 @@
                 remoteStream.textContent = message;
             }
         });
-    </script>
-
-    // lưu lại thông tin máy chủ
-    <script>
-        document.getElementById('goToQuizBtn').addEventListener('click', function() {
-    // Gửi yêu cầu đến máy chủ để lấy danh sách người dùng trực tuyến
-    fetch('/getOnlineUsers')
-        .then(response => response.json())
-        .then(data => {
-            // Cập nhật giao diện người dùng với danh sách người dùng trực tuyến
-            const ulUser = document.getElementById('ulUser');
-            ulUser.innerHTML = ''; // Xóa danh sách người dùng hiện tại
-            data.forEach(user => {
-                const li = document.createElement('li');
-                li.textContent = user.username; // Thay 'username' bằng thuộc tính tên người dùng của bạn
-                ulUser.appendChild(li);
-            });
-            // Redirect to quiz page
-            window.location.href = '/quiz';
-        })
-        .catch(error => console.error('Error:', error));
-});
-
-    </script>
-    
+    </script>   
 </body>
 </html>
